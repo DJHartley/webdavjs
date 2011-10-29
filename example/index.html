@@ -3,21 +3,57 @@
     <script type="text/javascript" src="../src/webdav.js"></script>
     <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
     <script type="text/javascript">
-      var fs = new WebDAV.Fs('http://localhost:10080');
+      var fs = new WebDAV.Fs('http://127.0.0.1:8080');
 
       var urlid = function(u) {
         return u.replace(/:/g, '_').replace(/\//g, '_');
       };
 
+      var move = function(c){
+        var target = files[c];
+        var dest = prompt('Enter Destination');
+        if(prompt){
+          target.move(dest, 'F', function(err){
+            if(err){
+              alert(JSON.stringify(err));
+            }else{
+              windows.location.reload();
+            }
+          });
+        }
+      };
+
+      var copy = function(c){
+        var target = files[c];
+        var dest = prompt('Enter Destination');
+        if(prompt){
+          target.copy(dest, 'F', function(err){
+            if(err){
+              alert(JSON.stringify(err));
+            }else{
+              windows.location.reload();
+            }
+          });
+        }
+      };
+
+      var files = [];
+
       var loadDir = function(dir, parentNode) {
-        dir.children(function(children) {
+        dir.children(function(httpStatus, children) {
+          files = children;
           var ulId = urlid(dir.url) + '_ul';
 
           var ul = '<ul id="' + ulId + '">'
           for (var c in children) {
             ul += '<li class="' + children[c].type + '" id="' + 
             urlid(children[c].url) + '"><a href="' + 
-            children[c].url + '">' + children[c].name + '</a></li>';
+            children[c].url + '">' + children[c].name + '</a>'
+            ul+='<input type="button" value="Move" onclick="move('+ c +')"/>'
+            ul+='<input type="button" value="Copy" onclick="copy(' + c + ')"/></br>'
+            ul+='properties : ' + JSON.stringify(children[c].properties)+"</br>";
+            ul+='statusCode : ' + children[c].statusCode+"</br>";
+            ul+='</li>';
           }
           ul += '</ul>';
           
@@ -30,7 +66,7 @@
       }
 
       $(document).ready(function(){
-        loadDir(fs.dir('/'), '#root')
+        loadDir(fs.dir('/workspace/testing'), '#root')
       });
     </script>
   </head>
