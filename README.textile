@@ -54,6 +54,14 @@ h3. File.rm(callback)
 
 Deletes the file.
 
+h3. File.move(destination, overwrite, callback)
+
+Move the file to the destination.
+
+h3 File.copy(destination, overwrite, callback)
+
+Copy the file to the destination.
+
 h3. Dir.children(callback)
 
 Lists all files and directories under Dir. The result is an Array of other File
@@ -66,6 +74,14 @@ Creates the directory.
 h3. Dir.rm(callback)
 
 Removes the directory.
+
+h3. Dir.move(destination, overwrite, callback)
+
+Move the directory to the destination.
+
+h3  Dir.copy(destination, overwrite, callback)
+
+Copy the directory to the destination.
 
 h2. Usage/Example
 
