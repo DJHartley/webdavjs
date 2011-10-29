@@ -58,7 +58,7 @@ h3. File.move(destination, overwrite, callback)
 
 Move the file to the destination.
 
-h3 File.copy(destination, overwrite, callback)
+h3. File.copy(destination, overwrite, callback)
 
 Copy the file to the destination.
 
@@ -79,7 +79,7 @@ h3. Dir.move(destination, overwrite, callback)
 
 Move the directory to the destination.
 
-h3  Dir.copy(destination, overwrite, callback)
+h3. Dir.copy(destination, overwrite, callback)
 
 Copy the directory to the destination.
 
